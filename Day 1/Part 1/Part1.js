@@ -1,4 +1,4 @@
-let data = require('./input')
+const data = require('./input')
 function countMagicNumber(data) {
     let parsedData = data.split('\n');
     let resultsArr = parsedData.map((singleRow) => {
