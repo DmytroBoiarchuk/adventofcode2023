@@ -1,4 +1,4 @@
-const data = require('./data')
+const data = require('../data')
 const redMax = 12;
 const greenMax = 13;
 const blueMax = 14;

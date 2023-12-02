@@ -1,4 +1,4 @@
-const data = require('../Part 1/input')
+const data = require('../input')
 const digitTransliteration = ['one', 'two','three', 'four', 'five', 'six',
     'seven','eight', 'nine']
 const digitTranslation = {
