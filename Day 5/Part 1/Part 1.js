@@ -23,4 +23,5 @@ seeds.forEach((seed) => {
     }
     result.push(seed)
 })
+
 console.log(Math.min(...result))
