@@ -1,12 +1,18 @@
+/// sorry for unreadable code :(
+
 let input = require('../input')
+let example = '32T3K 765\n' +
+    'T55J5 684\n' +
+    'KK677 28\n' +
+    'KTJJT 220\n' +
+    'QQQJA 483'
 let cardSet = input.split('\n').map(hand => hand.split(' ')).map(set =>
     [set[0], parseInt(set[1])]
 )
-
 const cardValues = {
-    'A': 13,
-    'K': 12,
-    'Q': 11,
+    'A': 14,
+    'K': 13,
+    'Q': 12,
     'T': 10,
     '9': 9,
     '8': 8,
@@ -43,11 +49,12 @@ function findJokers () {
                         if (key !== 'J' && (cardSet[i][0].split(key).length - 1) === 2) {
                             fiveOfAKindArr.push(cardSet[i])
                             done = true
-                        } else {
-                            fourOfAKindArr.push(cardSet[i])
-                            done = true
                         }
                     }
+                }
+                if(!done){
+                    fourOfAKindArr.push(cardSet[i])
+                    done = true
                 }
             }else if((cardSet[i][0].split('J').length -1) === 2){
                 let done = false;
@@ -193,7 +200,7 @@ function cleanArray (arr) {
 
 findJokers()
 cleanArray(jokerArr)
- fiveOfAKind(fiveOfAKindArr)
+fiveOfAKind(fiveOfAKindArr)
 cleanArray(fiveOfAKindArr)
 fourOfAKind(fourOfAKindArr)
 cleanArray(fourOfAKindArr)
@@ -205,7 +212,6 @@ twoPair( twoPairArr)
 cleanArray (twoPairArr)
 onePair( onePairArr)
 cleanArray (onePairArr)
-
 GeneralArr = GeneralArr.concat(fiveOfAKindArr.sort(compareHands));
 GeneralArr = GeneralArr.concat(fourOfAKindArr.sort(compareHands));
 GeneralArr = GeneralArr.concat(fullHouseArr.sort(compareHands));
@@ -213,12 +219,8 @@ GeneralArr = GeneralArr.concat(threeOfAKindArr.sort(compareHands));
 GeneralArr = GeneralArr.concat(twoPairArr.sort(compareHands));
 GeneralArr = GeneralArr.concat(onePairArr.sort(compareHands));
 GeneralArr = GeneralArr.concat(cardSet.sort(compareHands));
-
 let sum = 0
 for (let i = 0; i < GeneralArr.length; i++){
-    sum += GeneralArr[i][1] * (GeneralArr.length - i)
+    sum += (GeneralArr[i][1] * (GeneralArr.length - i))
 }
 console.log(sum)
-
-
-
