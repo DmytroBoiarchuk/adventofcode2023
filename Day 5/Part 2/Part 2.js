@@ -32,6 +32,7 @@ const example = 'seeds: 79 14 55 13\n' +
     'humidity-to-location map:\n' +
     '60 56 37\n' +
     '56 93 4'
+let diapasons = []
 let seeds = example.split('\n')[0].split(':')[1].trim().split(' ')
 let mapData = example.split(' \n')
 mapData.shift()
@@ -52,21 +53,46 @@ function find(prevNumber, circleNumber) {
     return nextNumber
 }
 
-console.log(seeds)
 let min = -1
 for(let i = 0; i < seeds.length; i+=2) {
     let range = parseInt(seeds[i+1])
     let seed = parseInt(seeds[i])
-    for(let x = 0; x < range; x++){
-        for(let j=0 ; j<7; j++){
-            seed = find(seed, j)
-        }
-        console.log(seed)
-        min = min === -1 ? seed : Math.min(min, seed)
+    for(let loop = 0; loop < 7; loop++){
+        mapData[loop].forEach((row) => {
+            let startCircleChanged = false
+            let datas = row.split(' ')
+            if(!startCircleChanged && seed > parseInt(datas[1]) &&  (seed + range) < datas[1]+datas[2]){
+                seed = seed+(parseInt(datas[0]) - parseInt(datas[1]))
+                range = range+(parseInt(datas[0]) - parseInt(datas[1]))
+                startCircleChanged = true
+                diapasons.push([seed, range])
+                console.log(' reduced on ' + loop)
+            }
+            if(seed > (parseInt(datas[1])+ parseInt(datas[2])) || (seed + range) < datas[1]){
+                diapasons.push([seed, range])
+            }
+
+        })
+        // if(!startCircleChanged){
+        //     for(let x = 0; x < range; x++) {
+        //        seed = find(seed+x, loop)
+        //     }
+        // }
     }
 
 
+    // for(let x = 0; x < range; x++){
+    //     const prevSeed = seed
+    //     for(let j=startCircle ; j<7; j++){
+    //         seed = find(j === 0? seed+x : seed, j)
+    //     }
+    //     min = min === -1 ? seed : Math.min(min, seed)
+    //     seed = prevSeed+1
+    //
+    //
+    // }
+
 }
-console.log(min)
+console.log(min + ' - Result ')
 
 
